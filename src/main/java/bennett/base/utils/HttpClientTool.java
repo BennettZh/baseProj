@@ -258,18 +258,6 @@ public class HttpClientTool {
 	}
 
 	public static void main(String asg[]) {
-	/*	Map<String, String> map = WxConfig.getTempToken();
-		String token = map.get("access_token");
-		// String
-		// token="Oi1dp-p8GfE7JuA6Hrb71Xt4CUS8nrHUT34EDE0-BJVHspaQYi00lmup8gb7H_TsvXaiBfr5QSzmt-kEE-kGs9h0emtFzCMLrN3FqGkizlg";
-		String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="
-				+ token;
-		String body = "{" + "\"touser\": \"o_ryMtz-xkBIDs6a-vQ7KVrrdEFs\","
-				+ "\"msgtype\": \"text\"," + "\"text\": {"
-				+ "\"content\": \"Hello World\"" + "}" + "}";
-		System.out.println(url);
-
-		HttpClientTool.postJson(url, body);*/
 
 	}
 }

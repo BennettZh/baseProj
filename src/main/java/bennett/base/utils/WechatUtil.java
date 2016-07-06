@@ -64,7 +64,7 @@ public class WechatUtil {
 				"mch_id="+MCHID+"", "device_info=WEB",
 				"body=","nonce_str="+create_nonce_str()+"",
 				"notify_url="+notify_url+"","openid="+openid+"",
-				"out_trade_no="+out_trade_no+"","spbill_create_ip=121.41.107.3",
+				"out_trade_no="+out_trade_no+"","spbill_create_ip=[IP]",
 				"total_fee="+total_fee+"","trade_type=JSAPI"
 		        };
 		String sign=createSign(paramArr);
@@ -341,9 +341,9 @@ public class WechatUtil {
 			userimage=map.get("headimgurl").toString();
 			return	userimage;	
 		}
-		return	userimage="http://xmyangche.cn/dms/static/wxBase/imagesWx/head.png";
+		return	userimage="head.png";
 		}else{
-			return	userimage="http://xmyangche.cn/dms/static/wxBase/imagesWx/head.png";	
+			return	userimage="head.png";	
 		}
 		
 		
