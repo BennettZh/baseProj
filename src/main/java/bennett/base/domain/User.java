@@ -10,8 +10,18 @@ public class User {
     private String salt;
 
     private Boolean locked;
+    
+    private String orgId;
 
-    public Long getId() {
+    public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public Long getId() {
         return id;
     }
 

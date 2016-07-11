@@ -2,6 +2,7 @@ package bennett.base.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -64,6 +65,16 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public void removeAllUserFromRole(Long roleId) {
 		roleDao.removeAllUserFromRole(roleId);
+	}
+
+	@Override
+	public Set<String> findRoles(Long[] roleIds) {
+		return null;
+	}
+
+	@Override
+	public Set<String> findPermissions(Long[] roleIds) {
+		return null;
 	}
 
 }

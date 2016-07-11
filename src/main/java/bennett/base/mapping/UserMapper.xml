@@ -9,7 +9,7 @@
     <result column="locked" property="locked" jdbcType="BIT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, salt, locked
+    id, username, password, salt, locked, org_id
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -23,9 +23,9 @@
   </delete>
   <insert id="insert" parameterType="bennett.base.domain.User" >
     insert into sys_users (id, username, password, 
-      salt, locked)
+      salt, locked, org_id)
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=BIT})
+      #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=BIT}), #{orgId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="bennett.base.domain.User" >
     insert into sys_users
@@ -45,6 +45,9 @@
       <if test="locked != null" >
         locked,
       </if>
+      <if test="orgId != null" >
+        orgId,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -61,6 +64,9 @@
       </if>
       <if test="locked != null" >
         #{locked,jdbcType=BIT},
+      </if>
+      <if test="orgId != null" >
+        #{orgId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -79,6 +85,9 @@
       <if test="locked != null" >
         locked = #{locked,jdbcType=BIT},
       </if>
+      <if test="locked != null" >
+        org_id = #{orgId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -88,6 +97,7 @@
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
       locked = #{locked,jdbcType=BIT}
+      org_id = #{orgId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

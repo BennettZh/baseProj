@@ -1,6 +1,7 @@
 package bennett.base.service.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bennett.base.dao.IUserDao;
+import bennett.base.domain.BaseResource;
 import bennett.base.domain.User;
 import bennett.base.service.IUserService;
 
@@ -37,6 +39,11 @@ public class UserServiceImpl implements IUserService{
 	
 	public void createUser(User user){
 		userDao.insertSelective(user);
+	}
+
+	@Override
+	public void modifyUser(User user) {
+		userDao.updateByPrimaryKey(user);
 	}
 
 }

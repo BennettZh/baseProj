@@ -57,7 +57,6 @@ public class RedisCacheManager<T> implements CacheManager<T> {
 
 	@Override
 	public void notifyCacheinvalid(String cacheCategory) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -141,7 +140,6 @@ public class RedisCacheManager<T> implements CacheManager<T> {
 					is.close();
 					bis.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
