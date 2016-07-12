@@ -28,8 +28,11 @@ public class ResourceController {
 	@ResponseBody
 	public String getOrg(Model model, HttpSession session) {
 		List<Long> resourceIds = new ArrayList<Long>();
+		resourceIds.add(4L);
 		resourceIds.add(3L);
 		Set<String> permissions = resourceService.findPermissions(resourceIds);
+		permissions.clear();
+		permissions.add("user:admin");
 		List<BaseResource> menus = resourceService.findMenus(permissions);
 		Gson gson = new Gson();
 		return gson.toJson(permissions)+"----"+gson.toJson(menus);

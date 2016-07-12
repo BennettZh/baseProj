@@ -5,13 +5,14 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import bennett.base.dao.IUserDao;
-import bennett.base.domain.BaseResource;
 import bennett.base.domain.User;
 import bennett.base.service.IUserService;
+import bennett.base.utils.PasswordHelper;
 
 
 @Service
@@ -19,6 +20,9 @@ public class UserServiceImpl implements IUserService{
 
 	@Resource
 	private IUserDao userDao;
+	
+	@Resource
+	private PasswordHelper passwordHelper;
 	
 	@Override
 	public User getUserById(long userId) {
@@ -38,6 +42,7 @@ public class UserServiceImpl implements IUserService{
 	}
 	
 	public void createUser(User user){
+		passwordHelper.encryptPassword(user);
 		userDao.insertSelective(user);
 	}
 
@@ -46,4 +51,18 @@ public class UserServiceImpl implements IUserService{
 		userDao.updateByPrimaryKey(user);
 	}
 
+	@Override
+	public Set<String> findRoles(String username) {
+		return userDao.findRoles(username);
+	}
+
+	@Override
+	public Set<String> findPermissions(String username) {
+		return userDao.findPermissions(username);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
+	}
 }

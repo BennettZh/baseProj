@@ -7,9 +7,10 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
     <result column="locked" property="locked" jdbcType="BIT" />
+    <result column="fullname" property="fullname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, salt, locked, org_id
+    id, username, password, salt, locked, org_id, fullname
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -23,9 +24,9 @@
   </delete>
   <insert id="insert" parameterType="bennett.base.domain.User" >
     insert into sys_users (id, username, password, 
-      salt, locked, org_id)
+      salt, locked, org_id, fullname)
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=BIT}), #{orgId,jdbcType=BIGINT})
+      #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=BIT}), #{orgId,jdbcType=BIGINT}, #{fullname,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="bennett.base.domain.User" >
     insert into sys_users
@@ -48,6 +49,9 @@
       <if test="orgId != null" >
         orgId,
       </if>
+      <if test="fullname != null" >
+        fullname
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -68,6 +72,9 @@
       <if test="orgId != null" >
         #{orgId,jdbcType=BIGINT},
       </if>
+      <if test="fullname != null" >
+        #{fullname,jdbcType=VARCHAR}
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="bennett.base.domain.User" >
@@ -85,8 +92,11 @@
       <if test="locked != null" >
         locked = #{locked,jdbcType=BIT},
       </if>
-      <if test="locked != null" >
+      <if test="org_id != null" >
         org_id = #{orgId,jdbcType=BIGINT},
+      </if>
+      <if test="fullname != null" >
+        fullname = #{fullname,jdbcType=BIGINT}
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -96,8 +106,28 @@
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
-      locked = #{locked,jdbcType=BIT}
-      org_id = #{orgId,jdbcType=BIGINT}
+      locked = #{locked,jdbcType=BIT},
+      org_id = #{orgId,jdbcType=BIGINT},
+      fullname = #{fullname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="findRoles"  resultType="string">
+	select r.role as role from sys_users u  
+	left join sys_users_roles ur on u.id = ur.user_id
+	left join sys_roles r on ur.role_id = r.id
+	where u.username = #{0}
+	and u.locked = 0 and r.available = 1
+  </select>
+  <select id="findPermissions" resultType="string">
+	select p.permission from sys_users u 
+	left join sys_users_roles ur on u.id = ur.user_id
+	left join sys_roles r on ur.role_id = r.id
+	left join sys_roles_permissions rp on ur.role_id = rp.role_id
+	left join sys_permissions p on rp.permission_id = p.id
+	where u.username = #{0}
+	and u.locked = 0 and r.available = 1 and p.available = 1
+  </select>
+  <select id="findByUsername" resultType="bennett.base.domain.User">
+  select <include refid="Base_Column_List" /> from sys_user where username = #{0}
+  </select>
 </mapper>

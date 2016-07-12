@@ -4,6 +4,8 @@ public class User {
     private Long id;
 
     private String username;
+    
+    private String fullname;
 
     private String password;
 
@@ -12,8 +14,16 @@ public class User {
     private Boolean locked;
     
     private String orgId;
+    
+	public String getFullname() {
+		return fullname;
+	}
 
-    public String getOrgId() {
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
+	public String getOrgId() {
 		return orgId;
 	}
 
@@ -60,4 +70,8 @@ public class User {
     public void setLocked(Boolean locked) {
         this.locked = locked;
     }
+
+	public String getCredentialsSalt() {
+		return username+salt;
+	}
 }

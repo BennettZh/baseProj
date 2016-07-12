@@ -29,6 +29,9 @@ public class BaseResource {
         }
     }
     public boolean isRootNode() {
+    	if(parentId == null){
+    		return false;
+    	}
         return parentId == 0;
     }
     public Long getId() {

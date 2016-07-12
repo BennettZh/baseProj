@@ -22,15 +22,14 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {  
         String username = (String)principals.getPrimaryPrincipal();  
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();  
-//        authorizationInfo.setRoles(userService.findRoles(username));  
-//        authorizationInfo.setStringPermissions(userService.findPermissions(username));  
-//        System.out.println(userService.findPermissions(username));  
+        authorizationInfo.setRoles(userService.findRoles(username));  
+        authorizationInfo.setStringPermissions(userService.findPermissions(username));  
+        System.out.println(userService.findPermissions(username));  
         return authorizationInfo;  
     }  
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {  
         String username = (String)token.getPrincipal();  
-//        User user = userService.findByUsername(username);  
-        User user = null;
+        User user = userService.findByUsername(username);  
         if(user == null) {  
             throw new UnknownAccountException();//没找到帐号  
         }  
@@ -40,7 +39,7 @@ public class UserRealm extends AuthorizingRealm {
         return new SimpleAuthenticationInfo(  
                 user.getUsername(), //用户名  
                 user.getPassword(), //密码  
-//                ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=username+salt  
+                ByteSource.Util.bytes(user.getCredentialsSalt()),//salt=username+salt  
                 getName()  //realm name  
         );  
     }  
