@@ -128,6 +128,6 @@
 	and u.locked = 0 and r.available = 1 and p.available = 1
   </select>
   <select id="findByUsername" resultType="bennett.base.domain.User">
-  select <include refid="Base_Column_List" /> from sys_user where username = #{0}
+  select <include refid="Base_Column_List" /> from sys_users where username = #{0}
   </select>
 </mapper>

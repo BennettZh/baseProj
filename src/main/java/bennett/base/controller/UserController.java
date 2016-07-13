@@ -39,6 +39,7 @@ public class UserController {
 		Set<String> roles = userService.findRoles("admin");
 		Set<String> permissions = userService.findPermissions("admin");
 		Map<String, Object> map = new HashMap<String, Object>();
+		user = userService.findByUsername("admin");
 		map.put("permissions", permissions);
 		map.put("user", user);
 		map.put("roles", roles);
